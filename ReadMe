@@ -1,0 +1,32 @@
+
+MMMMMMMM               MMMMMMMM                 AAA                 NNNNNNNN        NNNNNNNN          GGGGGGGGGGGGG       OOOOOOOOO
+M:::::::M             M:::::::M                A:::A                N:::::::N       N::::::N       GGG::::::::::::G     OO:::::::::OO
+M::::::::M           M::::::::M               A:::::A               N::::::::N      N::::::N     GG:::::::::::::::G   OO:::::::::::::OO
+M:::::::::M         M:::::::::M              A:::::::A              N:::::::::N     N::::::N    G:::::GGGGGGGG::::G  O:::::::OOO:::::::O
+M::::::::::M       M::::::::::M             A:::::::::A             N::::::::::N    N::::::N   G:::::G       GGGGGG  O::::::O   O::::::O
+M:::::::::::M     M:::::::::::M            A:::::A:::::A            N:::::::::::N   N::::::N  G:::::G                O:::::O     O:::::O
+M:::::::M::::M   M::::M:::::::M           A:::::A A:::::A           N:::::::N::::N  N::::::N  G:::::G                O:::::O     O:::::O
+M::::::M M::::M M::::M M::::::M          A:::::A   A:::::A          N::::::N N::::N N::::::N  G:::::G    GGGGGGGGGG  O:::::O     O:::::O
+M::::::M  M::::M::::M  M::::::M         A:::::A     A:::::A         N::::::N  N::::N:::::::N  G:::::G    G::::::::G  O:::::O     O:::::O
+M::::::M   M:::::::M   M::::::M        A:::::AAAAAAAAA:::::A        N::::::N   N:::::::::::N  G:::::G    GGGGG::::G  O:::::O     O:::::O
+M::::::M    M:::::M    M::::::M       A:::::::::::::::::::::A       N::::::N    N::::::::::N  G:::::G        G::::G  O:::::O     O:::::O
+M::::::M     MMMMM     M::::::M      A:::::AAAAAAAAAAAAA:::::A      N::::::N     N:::::::::N   G:::::G       G::::G  O::::::O   O::::::O
+M::::::M               M::::::M     A:::::A             A:::::A     N::::::N      N::::::::N    G:::::GGGGGGGG::::G  O:::::::OOO:::::::O
+M::::::M               M::::::M    A:::::A               A:::::A    N::::::N       N:::::::N     GG:::::::::::::::G   OO:::::::::::::OO
+M::::::M               M::::::M   A:::::A                 A:::::A   N::::::N        N::::::N       GGG::::::GGG:::G     OO:::::::::OO
+MMMMMMMM               MMMMMMMM  AAAAAAA                   AAAAAAA  NNNNNNNN         NNNNNNN          GGGGGG   GGGG       OOOOOOOOO
+
+
+Installation:
+
+-Build
+
+Arguments
+-f <flie_path>
+-start <start_num>
+-num <num>
+-arrow
+-cube
+-sphere
+-circle
+-point
