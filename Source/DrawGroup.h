@@ -1,8 +1,13 @@
 #pragma once
 
+ #define GLM_FORCE_RADIANS
+
+#include <stdio.h>
+
 #include <vector>
 #include <iostream>
 #include <list>
+#include <cstring>
 
 #include <fstream>
 #include <sstream>

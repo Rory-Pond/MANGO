@@ -1,6 +1,6 @@
 #pragma once
 
-#include "struct.h"
+#include "Struct.h"
 
 #include <iostream>
 #include <fstream>

@@ -3,7 +3,9 @@
 #include <iostream>
 #include <vector>
 
-#include <SDL2\SDL.h>
+#include "SDL2/SDL.h"
+#define GLM_FORCE_RADIANS
+
 #include "System.h"
 #include "DrawGroup.h"
 
@@ -12,6 +14,8 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
+
+
 
 //Handles all user input
 //Returns True unless QUIT

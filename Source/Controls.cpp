@@ -74,11 +74,10 @@ bool HandleEvents(System& sys)
 		cos(verticalAngle) * cos(horizontalAngle)
 	};
 	// Right vector
-	right = {
+	right = glm::vec3(
 		sin(horizontalAngle - 3.14f / 2.0f),
-		0,
-		cos(horizontalAngle - 3.14f / 2.0f)
-	};
+		0.0,
+		cos(horizontalAngle - 3.14f / 2.0f));
 	// Up vector
 	up = glm::cross(right, direction);
 

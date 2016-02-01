@@ -1,5 +1,6 @@
 #include "DrawGroup.h"
 #include <map>
+//#include "GLError.h"
 
 void indexVBO(
 	std::vector<glm::vec3> & in_vertices,
@@ -37,6 +38,7 @@ void DrawGroup::addSpins(std::vector<glm::vec3> Spins)
 
 void DrawGroup::OBJloader(std::string filename)
 {
+
 	std::ifstream objfile(filename, std::ifstream::in);
 	if (!objfile)
 	{
@@ -109,6 +111,9 @@ void DrawGroup::swapSpins(std::vector<glm::vec3> &newSpins)
 
 void DrawGroup::loadBuffers()
 {
+	glewExperimental = GL_TRUE;
+	glewInit();
+	
 	//  Create VAO
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -117,13 +122,14 @@ void DrawGroup::loadBuffers()
 	GLenum type;
 	GLboolean normalized;
 	GLsizei stride;
-	void* pointer;
+	const GLvoid* pointer=(void*)0;
 	//-------------------------------------------------------------
+	
 	// Vertex Buffer
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, Vertices.size() * sizeof(glm::vec3), &Vertices[0], GL_DYNAMIC_DRAW); // &____[0], ____.data() or &____.front()
-
+	
 	//  Pass vertex data
 	GLint vertexAttrib = 0;
 	glEnableVertexAttribArray(vertexAttrib);
@@ -132,9 +138,13 @@ void DrawGroup::loadBuffers()
 	normalized = GL_FALSE;
 	stride = 0; //Stride zero = tightly packed data
 	pointer = (void*)0;
-	glVertexAttribPointer(vertexAttrib, components, type, normalized, stride, pointer);
+	
+
+	glVertexAttribPointer(vertexAttrib, components, type, normalized, stride, 0);
+
 	glVertexAttribDivisor(vertexAttrib, 0); // Vetecies: Reuse same
 	//-------------------------------------------------------------
+	
 	// Normal Buffer
 	glGenBuffers(1, &normalBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
@@ -151,12 +161,14 @@ void DrawGroup::loadBuffers()
 	glVertexAttribPointer(normalAttrib, components, type, normalized, stride, pointer);
 	glVertexAttribDivisor(normalAttrib, 0); // Normals: Reuse same
 	//-------------------------------------------------------------
+	
 	// Index Buffer	
 	glGenBuffers(1, &indexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(int), &Indices[0], GL_DYNAMIC_DRAW);
 
 	//-------------------------------------------------------------
+	
 	// Coordinate Buffer
 	glGenBuffers(1, &coordBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, coordBuffer);
@@ -173,6 +185,7 @@ void DrawGroup::loadBuffers()
 	glVertexAttribPointer(corAttrib, components, type, normalized, stride, pointer);
 	glVertexAttribDivisor(corAttrib, 1); // Coord: 1 per atom
 	//-------------------------------------------------------------
+	
 	// Spin Buffer
 	CurrentSpins = AllSpins.begin();
 	glGenBuffers(1, &spinBuffer);

@@ -1,4 +1,4 @@
-#version 330 core
+#version 130
 //---------------------------
 //----- Fracmant Shader -----
 //---------------------------
@@ -15,8 +15,8 @@ out vec3 outColor;
 uniform vec3 LightPos;
 uniform mat4 V;
 
-void main(){
-
+void main()
+{
 //    float distance = length(LightPos - vertexPos);
 //
 //    vec3 cameraPos= ( V * vec4(vertexPos,1)).xyz;
@@ -32,11 +32,8 @@ void main(){
 //
 //    // color the color by the diffuse illumination level to get final output color.
 //    color = Color * diffuse;
-
-
-
     vec3 LightColor = vec3(1,1,1);
-    float LightPower = 5f;
+    float LightPower = 5.0;
 
     // Material properties
     vec3 MaterialDiffuseColor = Color;
@@ -89,5 +86,4 @@ void main(){
         MaterialDiffuseColor * LightColor * LightPower * cosTheta;// / (distance*distance);// +
         // Specular : reflective highlight, like a mirror
         //MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
-
 }

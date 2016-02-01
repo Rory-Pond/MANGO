@@ -1,25 +1,69 @@
+    ___  ___       ___       __   __    _______   ______   
+   |   \/   |     /   \     |  \ |  |  /  _____| /  __  \  
+   |  \  /  |    /  ^  \    |   \|  | |  |  __  |  |  |  | 
+   |  |\/|  |   /  /_\  \   |  . `  | |  | |_ | |  |  |  | 
+   |  |  |  |  /  _____  \  |  |\   | |  |__| | |  `--'  | 
+   |__|  |__| /__/     \__\ |__| \__|  \______|  \______/  
+   
+============================================================
+						Contents
+============================================================
+	1 - Installation
+	2 - Files
+	3 - Command line arguments
+	4 - Keyboard controls
 
-MMMMMMMM               MMMMMMMM                 AAA                 NNNNNNNN        NNNNNNNN          GGGGGGGGGGGGG       OOOOOOOOO
-M:::::::M             M:::::::M                A:::A                N:::::::N       N::::::N       GGG::::::::::::G     OO:::::::::OO
-M::::::::M           M::::::::M               A:::::A               N::::::::N      N::::::N     GG:::::::::::::::G   OO:::::::::::::OO
-M:::::::::M         M:::::::::M              A:::::::A              N:::::::::N     N::::::N    G:::::GGGGGGGG::::G  O:::::::OOO:::::::O
-M::::::::::M       M::::::::::M             A:::::::::A             N::::::::::N    N::::::N   G:::::G       GGGGGG  O::::::O   O::::::O
-M:::::::::::M     M:::::::::::M            A:::::A:::::A            N:::::::::::N   N::::::N  G:::::G                O:::::O     O:::::O
-M:::::::M::::M   M::::M:::::::M           A:::::A A:::::A           N:::::::N::::N  N::::::N  G:::::G                O:::::O     O:::::O
-M::::::M M::::M M::::M M::::::M          A:::::A   A:::::A          N::::::N N::::N N::::::N  G:::::G    GGGGGGGGGG  O:::::O     O:::::O
-M::::::M  M::::M::::M  M::::::M         A:::::A     A:::::A         N::::::N  N::::N:::::::N  G:::::G    G::::::::G  O:::::O     O:::::O
-M::::::M   M:::::::M   M::::::M        A:::::AAAAAAAAA:::::A        N::::::N   N:::::::::::N  G:::::G    GGGGG::::G  O:::::O     O:::::O
-M::::::M    M:::::M    M::::::M       A:::::::::::::::::::::A       N::::::N    N::::::::::N  G:::::G        G::::G  O:::::O     O:::::O
-M::::::M     MMMMM     M::::::M      A:::::AAAAAAAAAAAAA:::::A      N::::::N     N:::::::::N   G:::::G       G::::G  O::::::O   O::::::O
-M::::::M               M::::::M     A:::::A             A:::::A     N::::::N      N::::::::N    G:::::GGGGGGGG::::G  O:::::::OOO:::::::O
-M::::::M               M::::::M    A:::::A               A:::::A    N::::::N       N:::::::N     GG:::::::::::::::G   OO:::::::::::::OO
-M::::::M               M::::::M   A:::::A                 A:::::A   N::::::N        N::::::N       GGG::::::GGG:::G     OO:::::::::OO
-MMMMMMMM               MMMMMMMM  AAAAAAA                   AAAAAAA  NNNNNNNN         NNNNNNN          GGGGGG   GGGG       OOOOOOOOO
+============================================================
+		1 	- 	Installation
+============================================================
+
+Linux/Ubuntu installation
+	
+	Ubuntu Libaries required:
+	-lGL
+	-lGLU 
+	-lSDL2 
+	-lGLEW
+	
+	Install
+	GL: 	sudo apt-get install libgl1-mesa-dev
+	GLU:	sudo apt-get install libglu1-mesa-dev 
+	SDL2:	sudo apt-get install libsdl2-dev
+	GLEW:	sudo apt-get install libglew-dev
+	
+	Build Mango using makefile
+		make
+
+Mac installation
+	
+	Mac Frameworks required:
+	OpenGL
+	SDL2
+	GLEW
+
+	SDL2 download framework from website:
+	Copy framework file to Libary/Frameworks
+
+	GLEW download glew from website:
+	Build and install with make file
+	make
+	make install
+
+Windows installation
+
+	Make sure dll are all in correct folder
 
 
-Installation:
+============================================================
+		2 	- 	Files
+============================================================
 
--Build
+
+
+
+============================================================
+		3 	- 	Command line arguments
+============================================================
 
 Arguments
 -f <flie_path>
@@ -30,3 +74,8 @@ Arguments
 -sphere
 -circle
 -point
+
+
+============================================================
+		4 	- 	Keyboard controls
+============================================================

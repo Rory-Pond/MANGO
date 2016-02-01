@@ -1,13 +1,23 @@
-#version 330 core
+#version 130
 //---------------------------
 //----- Vertex Shader -------
 //---------------------------
 
+
+
+
+
+
+
+
+
+
+
 // In data
-layout(location=0) in vec3 vertex;
-layout(location=1) in vec3 normal;
-layout(location=2) in vec3 pos;
-layout(location=3) in vec3 spin;
+in vec3 vertex;
+in vec3 normal;
+in vec3 pos;
+in vec3 spin;
 
 // Uniforms
 uniform mat4 VP;

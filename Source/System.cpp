@@ -3,6 +3,7 @@
 
 System::System(std::string infolder,int startspin, int numsteps, std::string objectfile)
 {
+	glewInit();
 	DataInput Data(infolder, startspin);
 
 	//"../Vampire Data/4Fe_MvsT/" 300 steps
@@ -46,12 +47,16 @@ System::System(std::string infolder,int startspin, int numsteps, std::string obj
 		TempSpins.resize(0);
 	}
 
+	std::cout << "Read in all files" << std::endl;
+
 	for (int i = 0; i < sysInfo.numMaterials; i++)
 	{
-		//"res/OBJ_files/triangle_based_cone_smooth.obj"
 		materials[i].OBJloader(objectfile);
 		materials[i].loadBuffers();
 	}
+
+
+	std::cout << "Materials!" << std::endl;
 
 	printspininfo(currentstep);
 }
@@ -94,21 +99,24 @@ void System::decreaseStep()
 
 void System::visble(int DrawGroup)
 {
-	
+	materials.at(DrawGroup).visble();
+	/* <================================ FIX THIS
 	try {
 		materials.at(DrawGroup).visble();      // vector::at throws an out-of-range
 	}
 	catch (const std::out_of_range& oor) {
 		std::cerr << "Out of Range error: " << oor.what() << '\n';
 	}
+	*/
 }
 
 void System::printspininfo(int step)
 {
-	std::cout << "Step: " << spinStepInfo[step].StepNum << std::endl;
-	std::cout << "Time: " << spinStepInfo[step].Time << std::endl;
-	std::cout << "Field: " << spinStepInfo[step].Field << std::endl;
-	std::cout << "Magnetisation: " << spinStepInfo[step].Magnetisation.x << spinStepInfo[step].Magnetisation.y << spinStepInfo[step].Magnetisation.z << std::endl;
-	std::cout << "Tempreture: " << spinStepInfo[step].Tempreture << std::endl;
+	//std::cout << "Step: " << spinStepInfo[step].StepNum << std::endl;
+	//std::cout << "Time: " << spinStepInfo[step].Time << std::endl;
+	//std::cout << "Field: " << spinStepInfo[step].Field << std::endl;
+	//std::cout << "Magnetisation: " << spinStepInfo[step].Magnetisation.x << spinStepInfo[step].Magnetisation.y << spinStepInfo[step].Magnetisation.z << std::endl;
+	//std::cout << "Tempreture: " << spinStepInfo[step].Tempreture << std::endl;
+	std::cout << "Field: " << spinStepInfo[step].Field << "\nTime: " << spinStepInfo[step].Time << '\r' << std::flush;
 }
 

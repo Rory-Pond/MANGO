@@ -1,0 +1,483 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"x",
+				"xsize"
+			],
+			[
+				"s",
+				"size"
+			],
+			[
+				"g",
+				"grid"
+			],
+			[
+				"e",
+				"endl"
+			],
+			[
+				"gr",
+				"grid10"
+			],
+			[
+				"N",
+				"NewSize"
+			],
+			[
+				"O",
+				"OldSize"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"h",
+				"hsqr"
+			],
+			[
+				"M",
+				"MonteStep"
+			],
+			[
+				"y",
+				"ysize"
+			],
+			[
+				"nx",
+				"nx"
+			],
+			[
+				"ny",
+				"ny"
+			],
+			[
+				"co",
+				"cox1"
+			],
+			[
+				"a_t",
+				"a_t"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "DrawGroup.h",
+			"settings":
+			{
+				"buffer_size": 1112,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "System.cpp",
+			"settings":
+			{
+				"buffer_size": 3242,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "DrawGroup.cpp",
+			"settings":
+			{
+				"buffer_size": 13580,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Main.cpp",
+			"settings":
+			{
+				"buffer_size": 731,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Arguments.h",
+			"settings":
+			{
+				"buffer_size": 291,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Struct.h",
+			"settings":
+			{
+				"buffer_size": 278,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 96.0,
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/rory/Mango/Source/Main.cpp",
+		"/home/rory/Mango/Source/Mango.sublime-project",
+		"/home/rory/HPCasignment/q7serial.cpp",
+		"/home/rory/HPCasignment/output.txt",
+		"/home/rory/HPCasignment/run.sh",
+		"/home/rory/HPCasignment/exam_q3.f90",
+		"/home/rory/HPCasignment/assinment3.cpp",
+		"/home/rory/HPCasignment/assinment2.cpp",
+		"/home/rory/HPCasignment/q7.cpp",
+		"/home/rory/HPCasignment/OMP_Version.cpp",
+		"/home/rory/HPCasignment/grid100",
+		"/home/rory/HPCasignment/grid10",
+		"/home/rory/HPCasignment/imageGrid.pgm",
+		"/home/rory/HPCasignment/grid.txt",
+		"/home/rory/HPCasignment/image.pgm",
+		"/home/rory/Mango/Source/Arguments.cpp",
+		"/home/rory/Mango/Source/Arguments.h",
+		"/home/rory/Mango/Source/Window.cpp",
+		"/home/rory/Mango/Source/Window.h",
+		"/home/rory/Mango/Source/Text.cpp",
+		"/home/rory/Mango/Source/Text.h",
+		"/home/rory/Mango/Source/System.cpp",
+		"/home/rory/Mango/Source/System.h",
+		"/home/rory/Mango/Source/Struct.h",
+		"/home/rory/Mango/Source/Shader.cpp",
+		"/home/rory/Mango/Source/Shader.h",
+		"/home/rory/Mango/Source/Output.cpp",
+		"/home/rory/Mango/Source/Output.h",
+		"/home/rory/Mango/Source/DrawGroup.cpp",
+		"/home/rory/Mango/Source/DrawGroup.h",
+		"/home/rory/Mango/Source/DataInput.cpp",
+		"/home/rory/Mango/Source/DataInput.h",
+		"/home/rory/Mango/Source/Controls.cpp",
+		"/home/rory/Mango/Source/Controls.h",
+		"/home/rory/Mango/makefile",
+		"/home/rory/.config/sublime-text-2/Packages/User/MinimalFortran.sublime-settings",
+		"/media/rory/2AACD9CAACD99125/Documents/Uni/Cygwin/Year2DuffingOscillator/back.sh",
+		"/media/rory/ECD0EBC8D0EB96DC/cygwin64/home/Rory/HPCq7/q7.cpp",
+		"/media/rory/RP767@YORK/PrintGridtoPGM.cpp",
+		"/home/rory/.config/sublime-text-2/Packages/Default/Default (Windows).sublime-mousemap",
+		"/home/rory/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/rory/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-mousemap"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"3",
+			"/(size*size)",
+			"112 112",
+			"112 112 ",
+			"112 112 112 112 112 112 112 ",
+			".",
+			"-",
+			"y",
+			"x",
+			"indexVBO",
+			"lSDL2",
+			"glm::vec3",
+			";",
+			"_t",
+			"F",
+			"  ",
+			"test1",
+			"static,chunk_size"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"Y",
+			"X",
+			"_srl",
+			"    ",
+			"dynamic"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "DrawGroup.h",
+					"settings":
+					{
+						"buffer_size": 1112,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								297,
+								297
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "System.cpp",
+					"settings":
+					{
+						"buffer_size": 3242,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								125,
+								125
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "DrawGroup.cpp",
+					"settings":
+					{
+						"buffer_size": 13580,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3007,
+								3007
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 855.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Main.cpp",
+					"settings":
+					{
+						"buffer_size": 731,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Arguments.h",
+					"settings":
+					{
+						"buffer_size": 291,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Struct.h",
+					"settings":
+					{
+						"buffer_size": 278,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
