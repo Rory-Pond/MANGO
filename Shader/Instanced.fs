@@ -33,7 +33,7 @@ void main()
 //    // color the color by the diffuse illumination level to get final output color.
 //    color = Color * diffuse;
     vec3 LightColor = vec3(1,1,1);
-    float LightPower = 5.0;
+    float LightPower = 1.0;
 
     // Material properties
     vec3 MaterialDiffuseColor = Color;

@@ -1,81 +1,103 @@
-    ___  ___       ___       __   __    _______   ______   
-   |   \/   |     /   \     |  \ |  |  /  _____| /  __  \  
-   |  \  /  |    /  ^  \    |   \|  | |  |  __  |  |  |  | 
-   |  |\/|  |   /  /_\  \   |  . `  | |  | |_ | |  |  |  | 
-   |  |  |  |  /  _____  \  |  |\   | |  |__| | |  `--'  | 
-   |__|  |__| /__/     \__\ |__| \__|  \______|  \______/  
-   
-============================================================
-						Contents
-============================================================
-	1 - Installation
-	2 - Files
-	3 - Command line arguments
-	4 - Keyboard controls
 
-============================================================
-		1 	- 	Installation
-============================================================
+             ___  ___       ___       __   __    _______   ______   
+            |   \/   |     /   \     |  \ |  |  /  _____| /  __  \  
+            |  \  /  |    /  ^  \    |   \|  | |  |  __  |  |  |  | 
+            |  |\/|  |   /  /_\  \   |  . `  | |  | |_ | |  |  |  |
+            |  |  |  |  /  _____  \  |  |\   | |  |__| | |  `--'  | 
+            |__|  |__| /__/     \__\ |__| \__|  \______|  \______/  
+
+===============================================================================
+                    Contents
+===============================================================================
+    1 - Installation
+    2 - Files
+    3 - Command line arguments
+    4 - Keyboard controls
+
+===============================================================================
+        1     -     Installation
+===============================================================================
 
 Linux/Ubuntu installation
-	
-	Ubuntu Libaries required:
-	-lGL
-	-lGLU 
-	-lSDL2 
-	-lGLEW
-	
-	Install
-	GL: 	sudo apt-get install libgl1-mesa-dev
-	GLU:	sudo apt-get install libglu1-mesa-dev 
-	SDL2:	sudo apt-get install libsdl2-dev
-	GLEW:	sudo apt-get install libglew-dev
-	
-	Build Mango using makefile
-		make
+    
+    Ubuntu Libaries required:
+    -lGL
+    -lGLU 
+    -lSDL2 
+    -lGLEW
+    
+    Install
+    GL:     sudo apt-get install libgl1-mesa-dev
+    GLU:    sudo apt-get install libglu1-mesa-dev 
+    SDL2:    sudo apt-get install libsdl2-dev
+    GLEW:    sudo apt-get install libglew-dev
+    
+    Build Mango using makefile
+        make
 
 Mac installation
-	
-	Mac Frameworks required:
-	OpenGL
-	SDL2
-	GLEW
+    
+    Mac Frameworks required:
+    OpenGL
+    SDL2
+    GLEW
 
-	SDL2 download framework from website:
-	Copy framework file to Libary/Frameworks
+    SDL2 download framework from website:
+    Copy framework file to Libary/Frameworks
 
-	GLEW download glew from website:
-	Build and install with make file
-	make
-	make install
+    GLEW download glew from website:
+    Build and install with make file
+    make
+    make install
 
 Windows installation
 
-	Make sure dll are all in correct folder
+    Make sure dll are all in correct folder
 
 
-============================================================
-		2 	- 	Files
-============================================================
+===============================================================================
+        2     -     Files
+===============================================================================
 
 
 
 
-============================================================
-		3 	- 	Command line arguments
-============================================================
 
-Arguments
--f <flie_path>
--start <start_num>
--num <num>
--arrow
--cube
--sphere
--circle
--point
+===============================================================================
+        3     -     Command line arguments
+===============================================================================
+
+Command line arguments
+    -f <flie_path>
+    -start <start_num>
+    -num <num>
+    -arrow
+    -cube
+    -sphere
+    -circle
+    -point
+    -obj <waveobj_file_path>
 
 
-============================================================
-		4 	- 	Keyboard controls
-============================================================
+===============================================================================
+        4     -     Keyboard controls
+===============================================================================
+
+Arrow Left               - Back one time step
+Arrow Right              - Forward one time step
+
+Number keys 1-9          - Toggle show material 1-9
+
+Space bar                - Toggle camera or object movement
+
+w/s                      - Move Object/Camera Forward/Backward
+a/d                      - Move Object/Camera Left/Right
+q/e                      - Move Object/Camera Up/Down
+
+i/o                      - Rotate Roll
+j/k                      - Rotate Pitch
+n/m                      - Rotate Yaw
+
+t                        - Show framerate
+
+escape                   - Close Program

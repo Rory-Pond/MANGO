@@ -36,6 +36,7 @@ bool HandleEvents(System& sys)
 	double currentTime = SDL_GetTicks();
 	float deltaTime = float(currentTime - lastTime);
 	lastTime = currentTime;
+	static bool Mode = true;
 
 	//Movement varibles
 	glm::vec3 direction, right, up;
@@ -82,62 +83,56 @@ bool HandleEvents(System& sys)
 	up = glm::cross(right, direction);
 
 	//Keyboard press
-	if (keystate[SDL_SCANCODE_W])//Forwards
-		position += direction * deltaTime *  speed;
-	if (keystate[SDL_SCANCODE_S])//Backwards
-		position += -(direction * deltaTime *  speed);
-	if (keystate[SDL_SCANCODE_A])//Left
-		position += -(right * deltaTime * speed);
-	if (keystate[SDL_SCANCODE_D])//Right
-		position += right * deltaTime * speed;
-	if (keystate[SDL_SCANCODE_E])//Display frame time
-		std::cout << deltaTime << std::endl;
-	if (keystate[SDL_SCANCODE_M])//Unlock Mouse
-		SDL_SetRelativeMouseMode(SDL_FALSE);
-	if (keystate[SDL_SCANCODE_Q])//Quit
-		return false;
-	if (keystate[SDL_SCANCODE_Y])//RAW Image
-		WindowDump();
+	if (Mode){
+		if (keystate[SDL_SCANCODE_W])	position +=  direction * deltaTime * speed;
+		if (keystate[SDL_SCANCODE_S])	position +=-(direction * deltaTime * speed);
+		if (keystate[SDL_SCANCODE_A])	position +=-(right 	   * deltaTime * speed);
+		if (keystate[SDL_SCANCODE_D])	position +=  right 	   * deltaTime * speed;
+		}
 
-	static int spinStep = 0;
-	std::vector<glm::vec3> TempData;
+	if (keystate[SDL_SCANCODE_T])	std::cout << deltaTime << std::endl; //Frame Rate
+
+	if (keystate[SDL_SCANCODE_M])	SDL_SetRelativeMouseMode(SDL_FALSE); //Unlock Mouse
+	
+	if (keystate[SDL_SCANCODE_ESCAPE])	return false;  // Exit program
+	
+	if (keystate[SDL_SCANCODE_Y])		WindowDump(); //RAW Image
+
 	if (event.type == SDL_KEYDOWN)
 	{
-		if (event.key.keysym.sym == SDLK_LEFT)
+		if (!Mode)
 		{
-			sys.decreaseStep();
+			if (event.key.keysym.sym == SDLK_w)		Translation += vec3{ 1	, 0	, 0	}* deltaTime * speed;
+			if (event.key.keysym.sym == SDLK_s)		Translation += vec3{-1	, 0	, 0	}* deltaTime * speed;
+			if (event.key.keysym.sym == SDLK_a)		Translation += vec3{ 0	, 1	, 0	}* deltaTime * speed;
+			if (event.key.keysym.sym == SDLK_d)		Translation += vec3{ 0	,-1	, 0	}* deltaTime * speed;
+			if (event.key.keysym.sym == SDLK_q)		Translation += vec3{ 0	, 0	, 1	}* deltaTime * speed;
+			if (event.key.keysym.sym == SDLK_e)		Translation += vec3{ 0	, 0	,-1	}* deltaTime * speed;
 		}
-		if (event.key.keysym.sym == SDLK_RIGHT)
-		{
-			sys.increaseStep();
-		}
-		if (event.key.keysym.sym == SDLK_1)
-		{
-			sys.visble(0);
-		}
-		if (event.key.keysym.sym == SDLK_2)
-		{
-			sys.visble(1);
-		}
-		if (event.key.keysym.sym == SDLK_3)
-		{
-			sys.visble(2);
-		}
-		if (event.key.keysym.sym == SDLK_4)
-		{
-			sys.visble(3);
-		}
-		if (event.key.keysym.sym == SDLK_5)
-		{
-			sys.visble(4);
-		}
-		if (event.key.keysym.sym == SDLK_6)
-		{
-			sys.visble(5);
-		}
+		if (event.key.keysym.sym == SDLK_ESCAPE)	return false;
+
+		if (event.key.keysym.sym == SDLK_SPACE)		Mode = !Mode;
+
+		if (event.key.keysym.sym == SDLK_LEFT) 		sys.decreaseStep();
+		if (event.key.keysym.sym == SDLK_RIGHT)		sys.increaseStep();
+
+		if (event.key.keysym.sym == SDLK_1)			sys.visble(0);
+		if (event.key.keysym.sym == SDLK_2)			sys.visble(1);
+		if (event.key.keysym.sym == SDLK_3)			sys.visble(2);
+		if (event.key.keysym.sym == SDLK_4)			sys.visble(3);
+		if (event.key.keysym.sym == SDLK_5)			sys.visble(4);
+		if (event.key.keysym.sym == SDLK_6)			sys.visble(5);
+
+		if (event.key.keysym.sym == SDLK_i)			Orientation *= quat{cos( 0.05)	,sin( 0.05)	, 0 		, 0 		}; //Roll
+		if (event.key.keysym.sym == SDLK_o)			Orientation *= quat{cos(-0.05)	,sin(-0.05)	, 0 		, 0 		};
+		if (event.key.keysym.sym == SDLK_l)			Orientation *= quat{cos( 0.05)	,0 			, sin( 0.05), 0 		}; //Pitch
+		if (event.key.keysym.sym == SDLK_k)			Orientation *= quat{cos(-0.05)	,0 			, sin(-0.05), 0 		};
+		if (event.key.keysym.sym == SDLK_n)			Orientation *= quat{cos( 0.05)	,0 			, 0 		, sin( 0.05)}; //Yaw
+		if (event.key.keysym.sym == SDLK_m)			Orientation *= quat{cos(-0.05)	,0 			, 0 	 	, sin(-0.05)};
+
 	}
 
-	//Tweak Bar values
+	//Ratation, Translation, and Scale
 	glm::mat4 RotationMatrix = mat4_cast(Orientation);
 	glm::mat4 TranslationMatrix = translate(mat4(), Translation);
 	glm::mat4 ScalingMatrix = scale(mat4(), vec3(1.0f, 1.0f, 1.0f));
@@ -148,7 +143,6 @@ bool HandleEvents(System& sys)
 	ViewMatrix = glm::lookAt(position, position + direction, up);
 	// Model Matrix: Translation, Rotation (quaternion), scale
 	ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
-
 
 	//Set Uniforms
 	glm::mat4 MVP = getModelViewProjectionMatrix();

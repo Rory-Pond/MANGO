@@ -13,14 +13,13 @@ export LC_ALL=C
 
 # LIBS
 LIBS=-lstdc++ -lGL -lGLU -lSDL2 -lGLEW
-LIBS_Mac =-lstdc++ -framework OpenGL -framework SDL2 -lGLEW #-lGLU -lSDL2 -lGLEW
+LIBS_Mac =-lstdc++ -framework OpenGL -framework SDL2 -lGLEW
 
 # Debug Flags
 LLVM_CFLAGS= -O3 -mtune=native -funroll-loops -I./hdr -std=c++11
 LLVM_LDFLAGS= -lstdc++ -I./hdr -I./src/qvoronoi
 
-GCC_CFLAGS=-O3 -mtune=native -funroll-all-loops -fexpensive-optimizations -funroll-loops -I./include/ -std=c++11 
-GCC_LDFLAGS= -lstdc++ -I./hdr -I./src/qvoronoi -std=c++11
+GCC_CFLAGS=-O3 -mtune=native -funroll-all-loops -fexpensive-optimizations -funroll-loops -std=c++11 
 
 # Objects
 OBJECTS= \
@@ -41,11 +40,10 @@ all: $(OBJECTS) gcc
 
 # Serial Targets
 gcc: $(OBJECTS)
-	$(GCC) $(OBJECTS) $(GCC_LDFLAGS) $(LIBS) -o $(EXECUTABLE)
+	$(GCC) $(OBJECTS) $(LIBS) -o $(EXECUTABLE)
 
 $(OBJECTS): obj/%.o: Source/%.cpp
 	$(GCC) -c -o $@ $(GCC_CFLAGS) $<
-
 
 clean:
 	@rm -f obj/*.o
