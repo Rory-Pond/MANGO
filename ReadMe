@@ -50,6 +50,9 @@ Mac installation
     make
     make install
 
+    Build Mango using makefile
+        make mac
+
 Windows installation
 
     Make sure dll are all in correct folder

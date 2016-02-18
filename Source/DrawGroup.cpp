@@ -1,4 +1,6 @@
 #include "DrawGroup.h"
+#include "DefualtObjects.h"
+
 #include <map>
 //#include "GLError.h"
 

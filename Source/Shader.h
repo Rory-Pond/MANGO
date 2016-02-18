@@ -21,3 +21,8 @@ static void CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const s
 
 //Returns ProgramID
 GLuint getShader();
+
+std::string InstancedVertexShader();
+std::string InstancedFragmentShader();
+
+

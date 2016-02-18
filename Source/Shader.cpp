@@ -1,10 +1,13 @@
 #include "Shader.h"
+#include "ShaderFiles.h"
 
 #include <iostream>
 #include <fstream>
 #include <string>
 
+
 GLuint ProgramID;
+
 
 GLuint getShader() { return ProgramID; }
 
@@ -40,8 +43,8 @@ GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_pat
 {
 	//	Create program ID and Shader ID
 	ProgramID = glCreateProgram();
-	GLuint VertexShaderID = CreateShader(ReadShader(vertex_file_path), GL_VERTEX_SHADER);
-	GLuint FragmentShaderID = CreateShader(ReadShader(fragment_file_path), GL_FRAGMENT_SHADER);
+	GLuint VertexShaderID = CreateShader(vertexShaderSrc, GL_VERTEX_SHADER);
+	GLuint FragmentShaderID = CreateShader(fragmentShaderSrc, GL_FRAGMENT_SHADER);
 
 	//	Link Shaders to Program
 	glAttachShader(ProgramID, VertexShaderID);
@@ -101,7 +104,7 @@ static std::string ReadShader(const std::string& fileName)
 	}
 	else
 		std::cerr << "Unable to load shader: " << fileName << std::endl;
-
+	
 	// Return contents of file as string
 	return output;
 }
@@ -128,3 +131,4 @@ static void CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const s
 		std::cerr << errorMessage << ": '" << error << "'" << std::endl;
 	}
 }
+
