@@ -68,6 +68,14 @@
 	"buffers":
 	[
 		{
+			"file": "System.cpp",
+			"settings":
+			{
+				"buffer_size": 3093,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "DrawGroup.h",
 			"settings":
 			{
@@ -76,34 +84,34 @@
 			}
 		},
 		{
-			"file": "System.cpp",
+			"file": "DrawGroup.cpp",
 			"settings":
 			{
-				"buffer_size": 3242,
+				"buffer_size": 13819,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "DrawGroup.cpp",
+			"file": "/home/rory/MANGO/SimpleArrow.txt",
 			"settings":
 			{
-				"buffer_size": 13580,
-				"line_ending": "Windows"
+				"buffer_size": 4692,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "DefualtObjects.h",
+			"settings":
+			{
+				"buffer_size": 2720,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "Main.cpp",
 			"settings":
 			{
-				"buffer_size": 731,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Arguments.h",
-			"settings":
-			{
-				"buffer_size": 291,
+				"buffer_size": 820,
 				"line_ending": "Windows"
 			}
 		},
@@ -112,6 +120,54 @@
 			"settings":
 			{
 				"buffer_size": 278,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Arguments.cpp",
+			"settings":
+			{
+				"buffer_size": 618,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Shader.cpp",
+			"settings":
+			{
+				"buffer_size": 3856,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Shader.h",
+			"settings":
+			{
+				"buffer_size": 934,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Controls.cpp",
+			"settings":
+			{
+				"buffer_size": 7490,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Controls.h",
+			"settings":
+			{
+				"buffer_size": 546,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Window.cpp",
+			"settings":
+			{
+				"buffer_size": 1385,
 				"line_ending": "Windows"
 			}
 		}
@@ -152,6 +208,8 @@
 	},
 	"file_history":
 	[
+		"/home/rory/MANGO/Source/Arguments.h",
+		"/home/rory/MANGO/res/OBJ_files/arrow.waveobj",
 		"/home/rory/Mango/Source/Main.cpp",
 		"/home/rory/Mango/Source/Mango.sublime-project",
 		"/home/rory/HPCasignment/q7serial.cpp",
@@ -211,6 +269,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"stringstream",
+			"double",
+			".",
+			".x",
+			"Vertices",
+			"myfile",
 			"3",
 			"/(size*size)",
 			"112 112",
@@ -252,11 +316,41 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "System.cpp",
+					"settings":
+					{
+						"buffer_size": 3093,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
 					"file": "DrawGroup.h",
 					"settings":
 					{
@@ -267,39 +361,15 @@
 						"selection":
 						[
 							[
-								297,
-								297
+								323,
+								323
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 180.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "System.cpp",
-					"settings":
-					{
-						"buffer_size": 3242,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								125,
-								125
-							]
-						],
-						"settings":
-						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
@@ -314,46 +384,22 @@
 					"file": "DrawGroup.cpp",
 					"settings":
 					{
-						"buffer_size": 13580,
+						"buffer_size": 13819,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3007,
-								3007
+								13819,
+								13819
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 855.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Main.cpp",
-					"settings":
-					{
-						"buffer_size": 731,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
@@ -364,24 +410,57 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "Arguments.h",
+					"buffer": 3,
+					"file": "/home/rory/MANGO/SimpleArrow.txt",
 					"settings":
 					{
-						"buffer_size": 291,
+						"buffer_size": 4692,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2438,
+								2438
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 47.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "DefualtObjects.h",
+					"settings":
+					{
+						"buffer_size": 2720,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								123,
+								123
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -391,6 +470,36 @@
 				},
 				{
 					"buffer": 5,
+					"file": "Main.cpp",
+					"settings":
+					{
+						"buffer_size": 820,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								441,
+								441
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "Struct.h",
 					"settings":
 					{
@@ -401,16 +510,197 @@
 						"selection":
 						[
 							[
+								56,
+								56
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Arguments.cpp",
+					"settings":
+					{
+						"buffer_size": 618,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								618,
+								618
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Shader.cpp",
+					"settings":
+					{
+						"buffer_size": 3856,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1500,
+								1500
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 315.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Shader.h",
+					"settings":
+					{
+						"buffer_size": 934,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
 								0,
 								0
 							]
 						],
 						"settings":
 						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Controls.cpp",
+					"settings":
+					{
+						"buffer_size": 7490,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2066,
+								2066
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 630.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "Controls.h",
+					"settings":
+					{
+						"buffer_size": 546,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "Window.cpp",
+					"settings":
+					{
+						"buffer_size": 1385,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1133,
+								1133
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 45.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -478,6 +768,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 293.0,
 	"status_bar_visible": true
 }

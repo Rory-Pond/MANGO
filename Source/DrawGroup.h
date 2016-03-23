@@ -28,6 +28,7 @@ public:
 
 	void updateSpinBufffer();
 	void OBJloader(std::string file);
+	void OBJreader(std::string file);
 	void swapSpins(std::vector<glm::vec3>& newSpins);
 
 	void setCoords(std::vector<glm::vec3> in_Coords);

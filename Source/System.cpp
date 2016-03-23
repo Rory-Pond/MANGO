@@ -5,16 +5,13 @@ System::System(std::string infolder,int startspin, int numsteps, std::string obj
 {
 	glewInit();
 	DataInput Data(infolder, startspin);
-
-	//"../Vampire Data/4Fe_MvsT/" 300 steps
-	//"../Vampire Data/5nmNDFeB/" 100 steps
-	//"./TestData/AndreaFiles/" 60 steps START 2510
-	//"../TestData/ECC750K/0.1/" 300 steps
-	//"../Vampire Data/HomeMade/" 1 step
-	//"../Vampire Data/Simple/" 1 step
-	//"../Vampire Data/skerm/"  200 steps BROKEN MATERIAL
-	//"../Vampire Data/vortex/
+	std::cout << "Max Steps: " << numsteps << std::endl;
 	sysInfo = Data.readHeader();
+	if (numsteps == 0)
+	{
+		numsteps = sysInfo.MaxSteps;
+		std::cout << "Max Steps: " << numsteps << std::endl;
+	}
 	std::cout << "Loading system of size: " << sysInfo.numAtoms << std::endl;
 	std::cout << "Loading " << numsteps << " timesteps from " << startspin <<" to " << startspin+ numsteps << std::endl;
 	spinStepInfo.resize(numsteps);
@@ -117,6 +114,6 @@ void System::printspininfo(int step)
 	//std::cout << "Field: " << spinStepInfo[step].Field << std::endl;
 	//std::cout << "Magnetisation: " << spinStepInfo[step].Magnetisation.x << spinStepInfo[step].Magnetisation.y << spinStepInfo[step].Magnetisation.z << std::endl;
 	//std::cout << "Tempreture: " << spinStepInfo[step].Tempreture << std::endl;
-	std::cout << "Field: " << spinStepInfo[step].Field << "\nTime: " << spinStepInfo[step].Time << '\r' << std::flush;
+	//std::cout << "Field: " << spinStepInfo[step].Field << "\nTime: " << spinStepInfo[step].Time << '\r' << std::flush;
 }
 

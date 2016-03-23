@@ -8,6 +8,7 @@ struct systemInfo {
 	int numMaterials;
 	std::vector <double> Material;
 	glm::vec3 dimensions;
+	int MaxSteps;
 };
 
 struct spinInfo {

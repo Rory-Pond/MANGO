@@ -1,6 +1,7 @@
 #include "Controls.h"
 #include "Shader.h"
 #include "Output.h"
+#include "Toggle.h"
 
 glm::mat4 ViewMatrix;
 glm::mat4 ProjectionMatrix;
@@ -55,6 +56,7 @@ bool HandleEvents(System& sys)
 	float mouseSpeed = 0.005f;
 	float speed = glm::length(sys.sysInfo.dimensions)*0.001f;
 
+	static glm::mat4 RotationMatrix = mat4_cast(Orientation);
 
 
 	//Change in mouse
@@ -68,9 +70,14 @@ bool HandleEvents(System& sys)
 
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 		// Compute new orientation
-		//std::cout << "Mouse: " << double(xpos)<< ", "<< double(ypos) << std::endl;
-		Orientation *= quat{cos(0.005*double(xpos))	,sin( 0.005*double(xpos))	, 0 					  , 0 		};
-		Orientation *= quat{cos(0.005*double(ypos))	,0 							, sin( 0.005)*double(ypos), 0 		};
+//		std::cout << RotationMatrix << std::endl;
+
+		//if (xpos>0)	RotationMatrix = glm::rotate(RotationMatrix,float(1.0*xpos),up);
+
+//		std::cout << RotationMatrix << std::endl;
+
+		Orientation *= quat{cos(float(0.005)*float(xpos))	,sin( float(0.005)*float(xpos))	, 0 					  , 0 		};
+		Orientation *= quat{cos(float(0.005)*float(ypos))	,0 							, sin( float(0.005))*float(ypos), 0 		};
 	}
 
 	//Direction : Spherical coordinates to Cartesian coordinates conversion
@@ -88,26 +95,13 @@ bool HandleEvents(System& sys)
 	up = glm::cross(right, direction);
 
 	static float frontCross=0.1;
-	static float backCross=500;
+	static float backCross=(glm::length(sys.sysInfo.dimensions));
 
 	//Updates events
 	SDL_Event event;
 	SDL_PollEvent(&event);
-	SDL_PumpEvents();
-	//Keyboard press
-	if (Mode){
-		if (keystate[SDL_SCANCODE_W])	position +=  direction * deltaTime * speed;
-		if (keystate[SDL_SCANCODE_S])	position +=-(direction * deltaTime * speed);
-		if (keystate[SDL_SCANCODE_A])	position +=-(right 	   * deltaTime * speed);
-		if (keystate[SDL_SCANCODE_D])	position +=  right 	   * deltaTime * speed;
-	}else{
-		if (keystate[SDL_SCANCODE_W])	Translation += vec3{ 1	, 0	, 0	}* deltaTime * speed;
-		if (keystate[SDL_SCANCODE_S])	Translation += vec3{-1	, 0	, 0	}* deltaTime * speed;
-		if (keystate[SDL_SCANCODE_A])	Translation += vec3{ 0	, 1	, 0	}* deltaTime * speed;
-		if (keystate[SDL_SCANCODE_D])	Translation += vec3{ 0	,-1	, 0	}* deltaTime * speed;
-		if (keystate[SDL_SCANCODE_Q])	Translation += vec3{ 0	, 0	, 1	}* deltaTime * speed;
-		if (keystate[SDL_SCANCODE_E])	Translation += vec3{ 0	, 0	,-1	}* deltaTime * speed;
-	}
+	//SDL_PumpEvents();
+	if (event.type == SDL_QUIT) 				return false;
 
 	if (keystate[SDL_SCANCODE_T])				std::cout << deltaTime << std::endl; //Frame Rate
 
@@ -117,8 +111,29 @@ bool HandleEvents(System& sys)
 	
 	if (keystate[SDL_SCANCODE_Y])				WindowDump(); //RAW Image
 
-	if (keystate[SDL_SCANCODE_LEFT])			sys.decreaseStep();
-	if (keystate[SDL_SCANCODE_RIGHT])			sys.increaseStep();
+
+		//Keyboard press
+	if (keystate[SDL_SCANCODE_LSHIFT])
+	{
+		if (Toggle_LEFT())							sys.decreaseStep();
+		if (Toggle_RIGHT())							sys.increaseStep();
+
+		if (keystate[SDL_SCANCODE_W])	Translation += vec3{ 1	, 0	, 0	}* deltaTime * speed;
+		if (keystate[SDL_SCANCODE_S])	Translation += vec3{-1	, 0	, 0	}* deltaTime * speed;
+		if (keystate[SDL_SCANCODE_A])	Translation += vec3{ 0	, 1	, 0	}* deltaTime * speed;
+		if (keystate[SDL_SCANCODE_D])	Translation += vec3{ 0	,-1	, 0	}* deltaTime * speed;
+		if (keystate[SDL_SCANCODE_Q])	Translation += vec3{ 0	, 0	, 1	}* deltaTime * speed;
+		if (keystate[SDL_SCANCODE_E])	Translation += vec3{ 0	, 0	,-1	}* deltaTime * speed;
+	}else
+	{
+		if (keystate[SDL_SCANCODE_LEFT])			sys.decreaseStep();
+		if (keystate[SDL_SCANCODE_RIGHT])			sys.increaseStep();
+
+		if (keystate[SDL_SCANCODE_W])	position +=  direction * deltaTime * speed;
+		if (keystate[SDL_SCANCODE_S])	position +=-(direction * deltaTime * speed);
+		if (keystate[SDL_SCANCODE_A])	position +=-(right 	   * deltaTime * speed);
+		if (keystate[SDL_SCANCODE_D])	position +=  right 	   * deltaTime * speed;
+	}
 
 
 	if (keystate[SDL_SCANCODE_Z])				frontCross+=1;
@@ -127,43 +142,24 @@ bool HandleEvents(System& sys)
 	if (keystate[SDL_SCANCODE_C])				backCross+=1;
 	if (keystate[SDL_SCANCODE_V])				backCross-=1;
 
-	if (keystate[SDL_SCANCODE_SPACE])			Mode = !Mode;
-	//if (event.key.keysym.sym == SDLK_SPACE)		Mode = !Mode;
+	//Toggle switchs
 
-	if (event.type == SDL_KEYDOWN)
-	{
-		//if (!Mode)
-		//{
-		//	if (event.key.keysym.sym == SDLK_w)		Translation += vec3{ 1	, 0	, 0	}* deltaTime * speed;
-		//	if (event.key.keysym.sym == SDLK_s)		Translation += vec3{-1	, 0	, 0	}* deltaTime * speed;
-		//	if (event.key.keysym.sym == SDLK_a)		Translation += vec3{ 0	, 1	, 0	}* deltaTime * speed;
-		//	if (event.key.keysym.sym == SDLK_d)		Translation += vec3{ 0	,-1	, 0	}* deltaTime * speed;
-		//	if (event.key.keysym.sym == SDLK_q)		Translation += vec3{ 0	, 0	, 1	}* deltaTime * speed;
-		//	if (event.key.keysym.sym == SDLK_e)		Translation += vec3{ 0	, 0	,-1	}* deltaTime * speed;
-		//}
-		if (event.key.keysym.sym == SDLK_ESCAPE)	return false;
+	if (Toggle_SPACE())							Mode = !Mode;
 
-		//if (event.key.keysym.sym == SDLK_LEFT) 		sys.decreaseStep();
-		//if (event.key.keysym.sym == SDLK_RIGHT)		sys.increaseStep();
 
-		if (event.key.keysym.sym == SDLK_1)			sys.visble(0);
-		if (event.key.keysym.sym == SDLK_2)			sys.visble(1);
-		if (event.key.keysym.sym == SDLK_3)			sys.visble(2);
-		if (event.key.keysym.sym == SDLK_4)			sys.visble(3);
-		if (event.key.keysym.sym == SDLK_5)			sys.visble(4);
-		if (event.key.keysym.sym == SDLK_6)			sys.visble(5);
+	if (Toggle_1()) 							sys.visble(0);
+	if (Toggle_2()) 							sys.visble(1);
 
-		if (event.key.keysym.sym == SDLK_i)			Orientation *= quat{cos( 0.05)	,sin( 0.05)	, 0 		, 0 		}; //Roll
-		if (event.key.keysym.sym == SDLK_o)			Orientation *= quat{cos(-0.05)	,sin(-0.05)	, 0 		, 0 		};
-		if (event.key.keysym.sym == SDLK_l)			Orientation *= quat{cos( 0.05)	,0 			, sin( 0.05), 0 		}; //Pitch
-		if (event.key.keysym.sym == SDLK_k)			Orientation *= quat{cos(-0.05)	,0 			, sin(-0.05), 0 		};
-		if (event.key.keysym.sym == SDLK_n)			Orientation *= quat{cos( 0.05)	,0 			, 0 		, sin( 0.05)}; //Yaw
-		if (event.key.keysym.sym == SDLK_m)			Orientation *= quat{cos(-0.05)	,0 			, 0 	 	, sin(-0.05)};
 
-	}
+	if (keystate[SDL_SCANCODE_I])			Orientation *= quat{cos( 0.05)	,sin( 0.05)	, 0 		, 0 		}; //Roll
+	if (keystate[SDL_SCANCODE_O])			Orientation *= quat{cos(-0.05)	,sin(-0.05)	, 0 		, 0 		};
+	if (keystate[SDL_SCANCODE_L])			Orientation *= quat{cos( 0.05)	,0 			, sin( 0.05), 0 		}; //Pitch
+	if (keystate[SDL_SCANCODE_K])			Orientation *= quat{cos(-0.05)	,0 			, sin(-0.05), 0 		};
+	if (keystate[SDL_SCANCODE_N])			Orientation *= quat{cos( 0.05)	,0 			, 0 		, sin( 0.05)}; //Yaw
+	if (keystate[SDL_SCANCODE_M])			Orientation *= quat{cos(-0.05)	,0 			, 0 	 	, sin(-0.05)};
 
 	//Ratation, Translation, and Scale
-	glm::mat4 RotationMatrix = mat4_cast(Orientation);
+	
 	glm::mat4 TranslationMatrix = translate(mat4(), Translation);
 	glm::mat4 ScalingMatrix = scale(mat4(), vec3(1.0f, 1.0f, 1.0f));
 
@@ -176,7 +172,7 @@ bool HandleEvents(System& sys)
 		ProjectionMatrix = glm::ortho(-halfdiagonanl, halfdiagonanl, halfdiagonanl, -halfdiagonanl, 0.1f, 500.0f);
 	}
 	//(left,right,bottom,top,zNear,zFar)		
-
+	RotationMatrix = mat4_cast(Orientation);
 	// Camera matrix : Position, Viewing direction, Up direction
 	ViewMatrix = glm::lookAt(position, position + direction, up);
 	// Model Matrix: Translation, Rotation (quaternion), scale

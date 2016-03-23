@@ -125,6 +125,30 @@ systemInfo DataInput::readHeader()
 		Info.Material.push_back(atof(line.c_str()));
 	}
 
+	spinfile.close();
+
+	bool end=true;
+	int MaxSteps = 1;
+	while(true)
+	{
+		file_sstr.str(std::string());
+		file_sstr << folder << "atoms-";
+		file_sstr << std::setfill('0') << std::setw(8) << (initSpin+MaxSteps);
+		file_sstr << ".cfg";
+		cfg_file = file_sstr.str();
+
+		spinfile.open(cfg_file.c_str());
+		if (spinfile.fail())
+		{
+			std::cerr << "Error: Opening " << cfg_file.c_str() << " failed" << std::endl;
+			Info.MaxSteps = MaxSteps;
+			break;
+		}
+		else
+			MaxSteps++;
+		spinfile.close();
+	}
+
 	return Info;
 }
 
@@ -315,6 +339,11 @@ std::vector<glm::vec3> DataInput::loadSpins(int spinFileNum)
 	getline(spinfile, line); // number of local atoms
 	n_local_atoms = atoi(line.c_str());
 
+	if (!n_local_atoms==sysInfo.numAtoms)
+	{
+		std::cerr << "Error: File " << cfg_file.c_str() << " contains wrong number of spins" << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	// Read in spin coordinates
 	for (unsigned int i = 0; i < n_local_atoms; i++) {
 		spinfile >> spins[counter].x >> spins[counter].y >> spins[counter].z;

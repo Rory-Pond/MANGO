@@ -19,7 +19,8 @@ int main(int argc, char *argv[])
 
 	const int width = 1000, height = 800;
 	Window window(width, height, "MANGO");
-
+	glClearColor(0.337f, 0.337f, 0.337f, 1.0f);
+	glClearColor(0.337f, 0.337f, 0.337f, 1.0f);
 	System sys(Args.infolder, Args.startspin, Args.numsteps, Args.objectfile);
 
 

@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 Arguments::Arguments(int argc, char* argv[])
 {
 	for (int i = 1; i < argc; ++i)
@@ -18,6 +19,7 @@ Arguments::Arguments(int argc, char* argv[])
 			objectfile = "./res/OBJ_files/susan.waveobj";
 	}
 }
+
 //ico-1divitions.waveobj
 //"./res/OBJ_files/ico-1divitions.waveobj"
 Arguments::~Arguments()

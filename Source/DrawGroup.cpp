@@ -40,6 +40,18 @@ void DrawGroup::addSpins(std::vector<glm::vec3> Spins)
 
 void DrawGroup::OBJloader(std::string filename)
 {
+	Indices = Sphere_Indies;
+	Normals = Sphere_Normals;
+	Vertices = Sphere_Vertices;
+
+	VerticesSize = Vertices.size();
+	NormalsSize = Normals.size();
+	IndicesSize = Indices.size();
+	CoordsSize = Coords.size();
+}
+
+void DrawGroup::OBJreader(std::string filename)
+{
 
 	std::ifstream objfile(filename, std::ifstream::in);
 	if (!objfile)
@@ -104,6 +116,28 @@ void DrawGroup::OBJloader(std::string filename)
 	NormalsSize = Normals.size();
 	IndicesSize = Indices.size();
 	CoordsSize = Coords.size();
+
+	std::ofstream OutFile;
+	OutFile.open ("example.txt");
+	
+	
+	OutFile << "const std::vector<glm::vec3> SquareArrow_Vertices = {\n";
+	for (int i = 0; i < Vertices.size(); ++i)
+	{
+		OutFile << "glm::vec3(" << Vertices[i].x << ", " << Vertices[i].y << ", "<< Vertices[i].z << "),\n";
+	}
+	OutFile << "};\n\nconst std::vector<glm::vec3> SquareArrow_Normals ={\n";
+	for (int i = 0; i < Normals.size(); ++i)
+	{
+		OutFile << "glm::vec3(" << Normals[i].x << ", " << Normals[i].y << ", "<< Normals[i].z << "),\n";
+	}
+	OutFile << "};\n\nconst std::vector<int> SquareArrow_Indies ={\n";
+	for (int i = 0; i < Indices.size(); ++i)
+	{
+		OutFile << "" << Indices[i] << ",\n";
+	}
+	OutFile << "};\n";
+	OutFile.close();
 }
 
 void DrawGroup::swapSpins(std::vector<glm::vec3> &newSpins)
@@ -214,7 +248,8 @@ void DrawGroup::genPyramind()
 		vec3(0.5, 0.5, -0.5),
 		vec3(0.5, -0.5, -0.5),
 		vec3(-0.5, 0.5, -0.5),
-		vec3(-0.5, -0.5, -0.5) };
+		vec3(-0.5, -0.5, -0.5) 
+	};
 
 	Indices.resize(0);
 	Indices = {
@@ -223,7 +258,8 @@ void DrawGroup::genPyramind()
 		3, 0, 4,
 		1, 0, 3,
 		4, 2, 1,
-		1, 3, 4 };
+		1, 3, 4 
+	};
 	Normals.resize(0);
 	for (unsigned int i = 0; i < Vertices.size(); i++)
 	{
@@ -249,7 +285,8 @@ void DrawGroup::genIsosphere()
 		vec3(t, 0.0, -1.0),
 		vec3(t, 0.0, 1.0),
 		vec3(-t, 0.0, -1.0),
-		vec3(-t, 0.0, 1.0) };
+		vec3(-t, 0.0, 1.0) 
+	};
 
 	Indices.resize(0);
 	Indices = {
@@ -275,7 +312,8 @@ void DrawGroup::genIsosphere()
 		2, 4, 11,
 		6, 2, 10,
 		8, 6, 7,
-		9, 8, 1 };
+		9, 8, 1 
+	};
 	Normals.resize(0);
 	for (unsigned int i = 0; i < Vertices.size(); i++)
 	{
@@ -413,13 +451,21 @@ DrawGroup::~DrawGroup()
 }
 
 void DrawGroup::SpinstepAdd()
-{
+{	
+	static bool repeat =false;
 	CurrentSpins++;
 	if (CurrentSpins == AllSpins.end())
 	{
 		CurrentSpins--;
-		std::cout << "end" << std::endl;
-	}
+		
+		if (!repeat)
+		{
+			std::cout << "end" << std::endl;
+			repeat=true;
+		}
+		return;
+	}else
+	repeat=false;
 
 	glBindBuffer(GL_ARRAY_BUFFER, spinBuffer);
 	glBufferData(GL_ARRAY_BUFFER, (*CurrentSpins).size() * sizeof(glm::vec3), &(*CurrentSpins)[0], GL_DYNAMIC_DRAW);
@@ -428,11 +474,19 @@ void DrawGroup::SpinstepAdd()
 
 void DrawGroup::SpinstepMinus()
 {
+	static bool repeat =false;
 	if (CurrentSpins == AllSpins.begin())
 	{
-		std::cout << "begin" << std::endl;
+
+		if (!repeat)
+		{
+			std::cout << "begin" << std::endl;
+			repeat=true;
+		}
 		return;
-	}
+	}else
+	repeat=false;
+
 	CurrentSpins--;
 
 	glBindBuffer(GL_ARRAY_BUFFER, spinBuffer);
@@ -444,7 +498,7 @@ void DrawGroup::visble()
 {
 	if (show){ show = false;}
 	else
-	{show = true;}
+		{show = true;}
 }
 
 //----------------------------------------------
