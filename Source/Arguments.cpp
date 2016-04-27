@@ -20,8 +20,6 @@ Arguments::Arguments(int argc, char* argv[])
 	}
 }
 
-//ico-1divitions.waveobj
-//"./res/OBJ_files/ico-1divitions.waveobj"
 Arguments::~Arguments()
 {
 }

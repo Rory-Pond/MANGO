@@ -40,9 +40,9 @@ void DrawGroup::addSpins(std::vector<glm::vec3> Spins)
 
 void DrawGroup::OBJloader(std::string filename)
 {
-	Indices = Sphere_Indies;
-	Normals = Sphere_Normals;
-	Vertices = Sphere_Vertices;
+	Indices  = SquareArrow_Indies;
+	Normals  = SquareArrow_Normals;
+	Vertices = SquareArrow_Vertices;
 
 	VerticesSize = Vertices.size();
 	NormalsSize = Normals.size();

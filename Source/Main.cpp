@@ -18,9 +18,14 @@ int main(int argc, char *argv[])
 	Arguments Args(argc, argv);
 
 	const int width = 1000, height = 800;
-	Window window(width, height, "MANGO");
+	
+	//Window window_Second(width, height, "Second Window");
+
+	Window window_Main(width, height, "MANGO");
+
+
 	glClearColor(0.337f, 0.337f, 0.337f, 1.0f);
-	glClearColor(0.337f, 0.337f, 0.337f, 1.0f);
+	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	System sys(Args.infolder, Args.startspin, Args.numsteps, Args.objectfile);
 
 
@@ -30,7 +35,7 @@ int main(int argc, char *argv[])
 	std::cout << "GO" << std::endl;
 	do {
 		sys.update();
-		window.Update();
+		window_Main.Update();
 	} while (HandleEvents(sys));
 	
 	SDL_Quit();

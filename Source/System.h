@@ -3,6 +3,8 @@
 #include "DrawGroup.h"
 #include "DataInput.h"
 
+#include <stdexcept> 
+
 class System
 {
 public:

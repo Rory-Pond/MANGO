@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"GET",
+				"getCoords"
+			],
+			[
+				"in",
+				"include"
+			],
+			[
+				"e",
+				"endl"
+			],
+			[
+				"cou",
+				"cout"
+			],
+			[
+				"num",
+				"number"
+			],
+			[
+				"cl",
+				"close"
+			],
+			[
+				"FO",
+				"for"
+			],
+			[
+				"z",
+				"z"
+			],
+			[
+				"Sq",
+				"SquareArrow_Vertices"
+			],
+			[
+				"st",
+				"std"
+			],
+			[
+				"c",
+				"const"
+			],
+			[
 				"x",
 				"xsize"
 			],
@@ -14,10 +58,6 @@
 			[
 				"g",
 				"grid"
-			],
-			[
-				"e",
-				"endl"
 			],
 			[
 				"gr",
@@ -68,42 +108,10 @@
 	"buffers":
 	[
 		{
-			"file": "System.cpp",
+			"contents": "public class ArcBallCamera\n{\n\n    public ArcBallCamera(float aspectRation, Vector3 lookAt)\n    : this(aspectRation, MathHelper.PiOver4, lookAt, Vector3.Up, 0.1f, float.MaxValue) { }\n\n    public ArcBallCamera(float aspectRatio, float fieldOfView, Vector3 lookAt, Vector3 up, float nearPlane, float farPlane)\n    {\n        this.aspectRatio = aspectRatio;\n        this.fieldOfView = fieldOfView;            \n        this.lookAt = lookAt;\n        this.nearPlane = nearPlane;\n        this.farPlane = farPlane;\n    }\n\n        /// <summary>\n        /// Recreates our view matrix, then signals that the view matrix\n        /// is clean.\n        /// </summary>\n    private void ReCreateViewMatrix()\n    {\n            //Calculate the relative position of the camera                        \n        position = Vector3.Transform(Vector3.Backward, Matrix.CreateFromYawPitchRoll(yaw, pitch, 0));\n            //Convert the relative position to the absolute position\n        position *= zoom;\n        position += lookAt;\n\n            //Calculate a new viewmatrix\n        viewMatrix = Matrix.CreateLookAt(position, lookAt, Vector3.Up);\n        viewMatrixDirty = false;\n    }\n\n        /// <summary>\n        /// Recreates our projection matrix, then signals that the projection\n        /// matrix is clean.\n        /// </summary>\n    private void ReCreateProjectionMatrix()\n    {\n        projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, AspectRatio, nearPlane , farPlane);\n        projectionMatrixDirty = false;\n    }\n\n        #region HelperMethods\n\n        /// <summary>\n        /// Moves the camera and lookAt at to the right,\n        /// as seen from the camera, while keeping the same height\n        /// </summary>        \n    public void MoveCameraRight(float amount)\n    {\n            Vector3 right = Vector3.Normalize(LookAt - Position); //calculate forward\n            right = Vector3.Cross(right, Vector3.Up); //calculate the real right\n            right.Y = 0;\n            right.Normalize();\n            LookAt += right * amount;\n        }\n\n        /// <summary>\n        /// Moves the camera and lookAt forward,\n        /// as seen from the camera, while keeping the same height\n        /// </summary>        \n        public void MoveCameraForward(float amount)\n        {\n            Vector3 forward = Vector3.Normalize(LookAt - Position);\n            forward.Y = 0;\n            forward.Normalize();\n            LookAt += forward * amount;\n        }\n        \n        #endregion\n\n        #region FieldsAndProperties\n        //We don't need an update method because the camera only needs updating\n        //when we change one of it's parameters.\n        //We keep track if one of our matrices is dirty\n        //and reacalculate that matrix when it is accesed.\n        private bool viewMatrixDirty = true;\n        private bool projectionMatrixDirty = true;\n\n        public float MinPitch = -MathHelper.PiOver2 + 0.3f;\n        public float MaxPitch = MathHelper.PiOver2 - 0.3f;\n        private float pitch;\n        public float Pitch\n        {\n            get { return pitch; }\n            set\n            {\n                viewMatrixDirty = true;\n                pitch = MathHelper.Clamp(value, MinPitch, MaxPitch);               \n            }\n        }\n\n        private float yaw;\n        public float Yaw\n        {\n            get { return yaw; }\n            set\n            {\n                viewMatrixDirty = true;\n                yaw = value;\n            }\n        }\n\n        private float fieldOfView;\n        public float FieldOfView\n        {\n            get { return fieldOfView; }\n            set\n            {\n                projectionMatrixDirty = true;\n                fieldOfView = value;\n            }\n        }\n\n        private float aspectRatio;\n        public float AspectRatio\n        {\n            get { return aspectRatio; }\n            set\n            {\n                projectionMatrixDirty = true;\n                aspectRatio = value;\n            }\n        }\n\n        private float nearPlane;\n        public float NearPlane\n        {\n            get { return nearPlane; }\n            set\n            {\n                projectionMatrixDirty = true;\n                nearPlane = value;\n            }\n        }\n\n        private float farPlane;\n        public float FarPlane\n        {\n            get { return farPlane; }\n            set\n            {\n                projectionMatrixDirty = true;\n                farPlane = value;\n            }\n        }\n\n        public float MinZoom = 1;\n        public float MaxZoom = float.MaxValue;\n        private float zoom = 1;\n        public float Zoom\n        {\n            get { return zoom; }\n            set\n            {\n                viewMatrixDirty = true;\n                zoom = MathHelper.Clamp(value, MinZoom, MaxZoom);\n            }\n        }\n        \n        \n        private Vector3 position;\n        public Vector3 Position\n        {\n            get\n            {\n                if (viewMatrixDirty)\n                {\n                    ReCreateViewMatrix();\n                }\n                return position;\n            }\n        }\n\n        private Vector3 lookAt;\n        public Vector3 LookAt\n        {\n            get { return lookAt; }\n            set\n            {\n                viewMatrixDirty = true;\n                lookAt = value;\n            }\n        }\n        #endregion\n\n        #region ICamera Members        \n        public Matrix ViewProjectionMatrix\n        {\n            get {return ViewMatrix * ProjectionMatrix; }\n        }\n\n        private Matrix viewMatrix;        \n        public Matrix ViewMatrix\n        {\n            get\n            {\n                if (viewMatrixDirty)\n                {\n                    ReCreateViewMatrix();\n                }\n                return viewMatrix;\n            }\n        }\n\n        private Matrix projectionMatrix;\n        public Matrix ProjectionMatrix\n        {\n            get\n            {\n                if (projectionMatrixDirty)\n                {\n                    ReCreateProjectionMatrix();\n                }\n                return projectionMatrix;\n            }\n        }\n        #endregion\n    }",
 			"settings":
 			{
-				"buffer_size": 3093,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "DrawGroup.h",
-			"settings":
-			{
-				"buffer_size": 1112,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "DrawGroup.cpp",
-			"settings":
-			{
-				"buffer_size": 13819,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/home/rory/MANGO/SimpleArrow.txt",
-			"settings":
-			{
-				"buffer_size": 4692,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "DefualtObjects.h",
-			"settings":
-			{
-				"buffer_size": 2720,
+				"buffer_size": 6173,
 				"line_ending": "Unix"
 			}
 		},
@@ -111,47 +119,39 @@
 			"file": "Main.cpp",
 			"settings":
 			{
-				"buffer_size": 820,
+				"buffer_size": 890,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Struct.h",
+			"file": "Window.h",
 			"settings":
 			{
-				"buffer_size": 278,
+				"buffer_size": 249,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Window.cpp",
+			"settings":
+			{
+				"buffer_size": 1385,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Arguments.cpp",
+			"file": "DrawGroup.h",
 			"settings":
 			{
-				"buffer_size": 618,
+				"buffer_size": 1200,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Shader.cpp",
+			"file": "DrawGroup.cpp",
 			"settings":
 			{
-				"buffer_size": 3856,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Shader.h",
-			"settings":
-			{
-				"buffer_size": 934,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Controls.cpp",
-			"settings":
-			{
-				"buffer_size": 7490,
+				"buffer_size": 14457,
 				"line_ending": "Windows"
 			}
 		},
@@ -164,10 +164,53 @@
 			}
 		},
 		{
-			"file": "Window.cpp",
+			"file": "Controls.cpp",
 			"settings":
 			{
-				"buffer_size": 1385,
+				"buffer_size": 7668,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "DataInput.h",
+			"settings":
+			{
+				"buffer_size": 840,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "DataInput.cpp",
+			"settings":
+			{
+				"buffer_size": 10585,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "System.h",
+			"settings":
+			{
+				"buffer_size": 495,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "System.cpp",
+			"settings":
+			{
+				"buffer_size": 2952,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "#include \"Arguments.h\"\n\n#include <iostream>\n\nArguments::Arguments(int argc, char* argv[])\n{\n	for (int i = 1; i < argc; ++i)\n	{\n		if (std::string(argv[i]) == \"-f\")  \n			infolder = std::string(argv[i+1]);\n		if (std::string(argv[i]) == \"-start\")\n			startspin = atoi(argv[i + 1]);\n		if (std::string(argv[i]) == \"-num\")\n			numsteps = atoi(argv[i + 1]);\n		if (std::string(argv[i]) == \"-obj\")\n			objectfile = std::string(argv[i + 1]);\n		if (std::string(argv[i]) == \"-test\")\n			objectfile = \"./res/OBJ_files/susan.waveobj\";\n	}\n}\n\nArguments::~Arguments()\n{\n}\n",
+			"file": "Arguments.cpp",
+			"file_size": 646,
+			"file_write_time": 1458220938000000,
+			"settings":
+			{
+				"buffer_size": 550,
 				"line_ending": "Windows"
 			}
 		}
@@ -208,7 +251,17 @@
 	},
 	"file_history":
 	[
+		"/home/rory/Mango_mac/Mango/TestData/5nmNDFeB/atoms-00000001.cfg",
+		"/home/rory/Mango_mac/Mango/TestData/5nmNDFeB/atoms-00000002.cfg",
+		"/home/rory/MANGO/Source/Shader.h",
+		"/home/rory/MANGO/Source/DefualtObjects.h",
+		"/home/rory/MANGO/SimpleArrow.txt",
+		"/home/rory/MANGO/Source/Arguments.cpp",
+		"/home/rory/MANGO/Source/Shader.cpp",
 		"/home/rory/MANGO/Source/Arguments.h",
+		"/home/rory/MANGO/Source/Struct.h",
+		"/home/rory/MANGO/Source/Toggle.h",
+		"/home/rory/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
 		"/home/rory/MANGO/res/OBJ_files/arrow.waveobj",
 		"/home/rory/Mango/Source/Main.cpp",
 		"/home/rory/Mango/Source/Mango.sublime-project",
@@ -269,6 +322,29 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"updat",
+			"oor",
+			"0.005",
+			"ypos",
+			"position",
+			"backCross",
+			"loadSpins",
+			"SpinstepAdd",
+			"SquareArrow",
+			"[",
+			"SPACE",
+			"bool Toggle",
+			"_3",
+			"_2",
+			"2",
+			"1",
+			"sys.visble(0)",
+			"2",
+			"1",
+			"SDL_SCANCODE_SPACE",
+			"SDL_SCANCODE_LEFT",
+			"SDL_SCANCODE_SPACE",
+			"Pressed",
 			"stringstream",
 			"double",
 			".",
@@ -316,23 +392,22 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 9,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "System.cpp",
 					"settings":
 					{
-						"buffer_size": 3093,
+						"buffer_size": 6173,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								533,
+								533
 							]
 						],
 						"settings":
@@ -341,7 +416,8 @@
 							"glsv_enabled": 1,
 							"glsv_spec": 0,
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -351,18 +427,18 @@
 				},
 				{
 					"buffer": 1,
-					"file": "DrawGroup.h",
+					"file": "Main.cpp",
 					"settings":
 					{
-						"buffer_size": 1112,
+						"buffer_size": 890,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								323,
-								323
+								556,
+								556
 							]
 						],
 						"settings":
@@ -374,25 +450,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 45.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "DrawGroup.cpp",
+					"file": "Window.h",
 					"settings":
 					{
-						"buffer_size": 13819,
+						"buffer_size": 249,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13819,
-								13819
+								0,
+								0
 							]
 						],
 						"settings":
@@ -400,8 +476,7 @@
 							"glsv_configured": true,
 							"glsv_enabled": 1,
 							"glsv_spec": 0,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -411,272 +486,6 @@
 				},
 				{
 					"buffer": 3,
-					"file": "/home/rory/MANGO/SimpleArrow.txt",
-					"settings":
-					{
-						"buffer_size": 4692,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2438,
-								2438
-							]
-						],
-						"settings":
-						{
-							"glsv_configured": true,
-							"glsv_enabled": 1,
-							"glsv_spec": 0,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 47.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "DefualtObjects.h",
-					"settings":
-					{
-						"buffer_size": 2720,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								123,
-								123
-							]
-						],
-						"settings":
-						{
-							"glsv_configured": true,
-							"glsv_enabled": 1,
-							"glsv_spec": 0,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "Main.cpp",
-					"settings":
-					{
-						"buffer_size": 820,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								441,
-								441
-							]
-						],
-						"settings":
-						{
-							"glsv_configured": true,
-							"glsv_enabled": 1,
-							"glsv_spec": 0,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "Struct.h",
-					"settings":
-					{
-						"buffer_size": 278,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								56,
-								56
-							]
-						],
-						"settings":
-						{
-							"glsv_configured": true,
-							"glsv_enabled": 1,
-							"glsv_spec": 0,
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "Arguments.cpp",
-					"settings":
-					{
-						"buffer_size": 618,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								618,
-								618
-							]
-						],
-						"settings":
-						{
-							"glsv_configured": true,
-							"glsv_enabled": 1,
-							"glsv_spec": 0,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Shader.cpp",
-					"settings":
-					{
-						"buffer_size": 3856,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1500,
-								1500
-							]
-						],
-						"settings":
-						{
-							"glsv_configured": true,
-							"glsv_enabled": 1,
-							"glsv_spec": 0,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 315.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "Shader.h",
-					"settings":
-					{
-						"buffer_size": 934,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"glsv_configured": true,
-							"glsv_enabled": 1,
-							"glsv_spec": 0,
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "Controls.cpp",
-					"settings":
-					{
-						"buffer_size": 7490,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2066,
-								2066
-							]
-						],
-						"settings":
-						{
-							"glsv_configured": true,
-							"glsv_enabled": 1,
-							"glsv_spec": 0,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 630.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "Controls.h",
-					"settings":
-					{
-						"buffer_size": 546,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"glsv_configured": true,
-							"glsv_enabled": 1,
-							"glsv_spec": 0,
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 12,
 					"file": "Window.cpp",
 					"settings":
 					{
@@ -700,7 +509,276 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 45.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "DrawGroup.h",
+					"settings":
+					{
+						"buffer_size": 1200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								359,
+								359
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 315.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "DrawGroup.cpp",
+					"settings":
+					{
+						"buffer_size": 14457,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11539,
+								11539
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5471.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Controls.h",
+					"settings":
+					{
+						"buffer_size": 546,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								231,
+								231
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Controls.cpp",
+					"settings":
+					{
+						"buffer_size": 7668,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2416,
+								2416
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 931.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "DataInput.h",
+					"settings":
+					{
+						"buffer_size": 840,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								346,
+								346
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "DataInput.cpp",
+					"settings":
+					{
+						"buffer_size": 10585,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10240,
+								10240
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5401.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "System.h",
+					"settings":
+					{
+						"buffer_size": 495,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								409,
+								409
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "System.cpp",
+					"settings":
+					{
+						"buffer_size": 2952,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								203,
+								203
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "Arguments.cpp",
+					"settings":
+					{
+						"buffer_size": 550,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								550,
+								550
+							]
+						],
+						"settings":
+						{
+							"glsv_configured": true,
+							"glsv_enabled": 1,
+							"glsv_spec": 0,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

@@ -78,6 +78,7 @@ bool HandleEvents(System& sys)
 
 		Orientation *= quat{cos(float(0.005)*float(xpos))	,sin( float(0.005)*float(xpos))	, 0 					  , 0 		};
 		Orientation *= quat{cos(float(0.005)*float(ypos))	,0 							, sin( float(0.005))*float(ypos), 0 		};
+		//std::cout << Orientation << std::endl;
 	}
 
 	//Direction : Spherical coordinates to Cartesian coordinates conversion
@@ -95,13 +96,20 @@ bool HandleEvents(System& sys)
 	up = glm::cross(right, direction);
 
 	static float frontCross=0.1;
-	static float backCross=(glm::length(sys.sysInfo.dimensions));
+	static float backCross=7000;//(glm::length(sys.sysInfo.dimensions));
 
 	//Updates events
-	SDL_Event event;
-	SDL_PollEvent(&event);
-	//SDL_PumpEvents();
-	if (event.type == SDL_QUIT) 				return false;
+	SDL_Event * event;
+	SDL_PollEvent(event);
+//	SDL_PumpEvents();
+//
+//	if (event->type == SDL_QUIT)		return false;
+//
+//	if (event->type == SDL_WINDOWEVENT) {
+//		if (event->window.event == SDL_WINDOWEVENT_CLOSE) {
+//			return false;
+//		}
+//	}
 
 	if (keystate[SDL_SCANCODE_T])				std::cout << deltaTime << std::endl; //Frame Rate
 
@@ -146,17 +154,25 @@ bool HandleEvents(System& sys)
 
 	if (Toggle_SPACE())							Mode = !Mode;
 
-
 	if (Toggle_1()) 							sys.visble(0);
 	if (Toggle_2()) 							sys.visble(1);
 
 
-	if (keystate[SDL_SCANCODE_I])			Orientation *= quat{cos( 0.05)	,sin( 0.05)	, 0 		, 0 		}; //Roll
-	if (keystate[SDL_SCANCODE_O])			Orientation *= quat{cos(-0.05)	,sin(-0.05)	, 0 		, 0 		};
-	if (keystate[SDL_SCANCODE_L])			Orientation *= quat{cos( 0.05)	,0 			, sin( 0.05), 0 		}; //Pitch
-	if (keystate[SDL_SCANCODE_K])			Orientation *= quat{cos(-0.05)	,0 			, sin(-0.05), 0 		};
-	if (keystate[SDL_SCANCODE_N])			Orientation *= quat{cos( 0.05)	,0 			, 0 		, sin( 0.05)}; //Yaw
-	if (keystate[SDL_SCANCODE_M])			Orientation *= quat{cos(-0.05)	,0 			, 0 	 	, sin(-0.05)};
+	//if (keystate[SDL_SCANCODE_I])			Orientation *= quat{cos( 0.05)	,sin( 0.05)	, 0 		, 0 		}; //Roll
+	//if (keystate[SDL_SCANCODE_O])			Orientation *= quat{cos(-0.05)	,sin(-0.05)	, 0 		, 0 		};
+	//if (keystate[SDL_SCANCODE_L])			Orientation *= quat{cos( 0.05)	,0 			, sin( 0.05), 0 		}; //Pitch
+	//if (keystate[SDL_SCANCODE_K])			Orientation *= quat{cos(-0.05)	,0 			, sin(-0.05), 0 		};
+	//if (keystate[SDL_SCANCODE_N])			Orientation *= quat{cos( 0.05)	,0 			, 0 		, sin( 0.05)}; //Yaw
+	//if (keystate[SDL_SCANCODE_M])			Orientation *= quat{cos(-0.05)	,0 			, 0 	 	, sin(-0.05)};
+
+	const float dx = 0.5;
+	if (keystate[SDL_SCANCODE_I])		rotate (Orientation,dx, vec3(1,0,0)); //Roll
+	if (keystate[SDL_SCANCODE_O])		Orientation=	quat{cos(-0.05)	,sin( 0.05)	, 0 		, 0 		} * Orientation * inverse(quat{cos(-0.05)	,sin(-0.05)	, 0 		, 0 		});
+	if (keystate[SDL_SCANCODE_L])		Orientation=	quat{cos( 0.05)	,0 			, sin( 0.05), 0 		} * Orientation * inverse(quat{cos( 0.05)	,0 			, sin( 0.05), 0 		}); //Pitch
+	if (keystate[SDL_SCANCODE_K])		Orientation=	quat{cos(-0.05)	,0 			, sin(-0.05), 0 		} * Orientation * inverse(quat{cos(-0.05)	,0 			, sin(-0.05), 0 		});
+	if (keystate[SDL_SCANCODE_N])		Orientation=	quat{cos( 0.05)	,0 			, 0 		, sin( 0.05)} * Orientation * inverse(quat{cos( 0.05)	,0 			, 0 		, sin( 0.05)}); //Yaw
+	if (keystate[SDL_SCANCODE_M])		Orientation=	quat{cos(-0.05)	,0 			, 0 	 	, sin(-0.05)} * Orientation * inverse(quat{cos(-0.05)	,0 			, 0 	 	, sin(-0.05)});
+
 
 	//Ratation, Translation, and Scale
 	
@@ -188,7 +204,7 @@ bool HandleEvents(System& sys)
 	glm::vec3 LightPos = glm::vec3(0, 0, (glm::length(sys.sysInfo.dimensions)));//getLightPos();
 	glUniform3fv(UniformLightPos, 1, &LightPos[0]);
 
-	if (event.type == SDL_QUIT)
-		return false;
+
 	return true;
 }
+

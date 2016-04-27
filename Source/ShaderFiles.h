@@ -63,10 +63,10 @@ const GLchar* vertexShaderSrc = GLSL(
 		pos.x,	pos.y,	pos.z,	1.0);
 
 		mat4 scale = mat4(
-		4.0,	0.0,	0.0,	0.0,
-		0.0,	4.0,	0.0,	0.0,
-		0.0,	0.0,	4.0,	0.0,
-		0.0,	0.0,	0.0,	4.0);
+		1.0,	0.0,	0.0,	0.0,
+		0.0,	1.0,	0.0,	0.0,
+		0.0,	0.0,	1.0,	0.0,
+		0.0,	0.0,	0.0,	1.0);
 
 		mat4 ModelMat = scale*translate*rotateQ;
 
@@ -190,74 +190,50 @@ const GLchar* fragmentShaderSrc = GLSL(
 
 	void main()
 	{
-	//    float distance = length(LightPos - vertexPos);
-	//
-	//    vec3 cameraPos= ( V * vec4(vertexPos,1)).xyz;
-	//    vec3 cameraLightPos = ( V * vec4(LightPos,1)).xyz;
-	//    vec3 lightVector = normalize(cameraLightPos - cameraPos);
-	//
-	//    // Calculate the dot product of the light vector and vertex normal. If the normal and light vector are
-	//    // pointing in the same direction then it will get max illumination.
-	//    float diffuse = max(dot(cameraNormal, lightVector), 0.1);
-	//
-	//    // Add attenuation.
-	//    diffuse = diffuse * (1.0 / (1.0 + (0.25 * distance * distance)));
-	//
-	//    // color the color by the diffuse illumination level to get final output color.
-	//    color = Color * diffuse;
+
 	    vec3 LightColor = vec3(1,1,1);
-	    float LightPower = 1.0;
+	    float LightPower = 5.0;
 
 	    // Material properties
 	    vec3 MaterialDiffuseColor = Color;
 	    vec3 MaterialAmbientColor = vec3(0.6,0.6,0.6) * MaterialDiffuseColor;
 	    vec3 MaterialSpecularColor = vec3(0.1,0.1,0.1);
 
-	    vec3 WorldPos = (M * vec4(vertexPos,1)).xyz;
-
-	    // Distance to the light
-	    float distance = length(WorldPos - LightPos);
-
-	        // Normal of the the vertex, in camera space
-	    vec3 Normal_cameraspace = (-1)*( V * M * vec4(Normal,0)).xyz; // Only correct if ModelMatrix does not scale the model ! Use its inverse transpose if not.
-
-	    // Normal of the computed fragment, in camera space
-	    vec3 n = normalize( Normal_cameraspace );
-
-	    // Vector that goes from the vertex to the camera, in camera space.
-	    // In camera space, the camera is at the origin (0,0,0).
+	    //Vertex position and normal transformed into cameraspace for ease of calculations
+	    vec3 Normal_cameraspace = normalize( (-1)*( V * M * vec4(Normal,0)).xyz );
 	    vec3 vertexPosition_cameraspace = ( V * M * vec4(vertexPos,1)).xyz;
-	    vec3 EyeDirection_cameraspace = vec3(0,0,0) - vertexPosition_cameraspace;
 
-	    // Vector that goes from the vertex to the light, in camera space. M is ommited because it's identity.
-	    vec3 LightPosition_cameraspace = ( V * vec4(LightPos,1)).xyz;
-	    vec3 LightDirection_cameraspace = LightPosition_cameraspace + EyeDirection_cameraspace;
+	    //Direction 
+	    vec3 EyeDirection_cameraspace = normalize (vec3(0,0,0) - vertexPosition_cameraspace);
 
-	    // Direction of the light (from the fragment to the light)
-	    vec3 l = normalize( LightDirection_cameraspace );
+	    float distance = length(vertexPosition_cameraspace);
+
+	    vec3 LightPosition_cameraspace = vec3(0,0,0);
+	    vec3 LightDirection_cameraspace = normalize (LightPosition_cameraspace + EyeDirection_cameraspace );
+
 	    // Cosine of the angle between the normal and the light direction,
-	    // clamped above 0
+	    // clamped between 0 and 1
 	    //  - light is at the vertical of the triangle -> 1
 	    //  - light is perpendicular to the triangle -> 0
 	    //  - light is behind the triangle -> 0
-	    float cosTheta = clamp( dot( n,l ), 0,1 );
+	    float cosTheta = clamp( dot( Normal_cameraspace,LightDirection_cameraspace ), 0,1 );
 
 	    // Eye vector (towards the camera)
 	    vec3 E = normalize(EyeDirection_cameraspace);
 	    // Direction in which the triangle reflects the light
-	    vec3 R = reflect(-l,n);
+	    vec3 R = reflect(-LightDirection_cameraspace,Normal_cameraspace);
 	    // Cosine of the angle between the Eye vector and the Reflect vector,
-	    // clamped to 0
+	    // clamped between 0 and 1
 	    //  - Looking into the reflection -> 1
 	    //  - Looking elsewhere -> < 1
-	    float cosAlpha = clamp( dot( E,R ), 0,1 );
+	    float cosAlpha = clamp( dot( EyeDirection_cameraspace,R ), 0,1 );
 
 	    outColor =
 	        // Ambient : simulates indirect lighting
 	        MaterialAmbientColor +
 	        // Diffuse : "color" of the object
-	        MaterialDiffuseColor * LightColor * LightPower * cosTheta;// / (distance*distance);// +
+	        MaterialDiffuseColor * LightColor * LightPower * cosTheta + 
 	        // Specular : reflective highlight, like a mirror
-	        //MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
+	        MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5); // / (distance*distance);
 	}
 );

@@ -148,7 +148,6 @@ systemInfo DataInput::readHeader()
 			MaxSteps++;
 		spinfile.close();
 	}
-
 	return Info;
 }
 

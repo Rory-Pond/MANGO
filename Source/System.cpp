@@ -53,8 +53,10 @@ System::System(std::string infolder,int startspin, int numsteps, std::string obj
 	}
 
 
-	std::cout << "Materials!" << std::endl;
-
+	std::cout << "Materials" << std::endl;
+	for (int i = 0; i < sysInfo.numMaterials; i++)
+		std::cout << "Material " << i << " size: " <<materials[i].getCoordsSize() << std::endl;
+	
 	printspininfo(currentstep);
 }
 
@@ -96,15 +98,13 @@ void System::decreaseStep()
 
 void System::visble(int DrawGroup)
 {
-	materials.at(DrawGroup).visble();
-	/* <================================ FIX THIS
 	try {
 		materials.at(DrawGroup).visble();      // vector::at throws an out-of-range
 	}
 	catch (const std::out_of_range& oor) {
-		std::cerr << "Out of Range error: " << oor.what() << '\n';
+		std::cerr << "" << '\n';
 	}
-	*/
+	
 }
 
 void System::printspininfo(int step)

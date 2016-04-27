@@ -45,6 +45,8 @@ public:
 
 	void visble();
 
+	int getCoordsSize()  const { return CoordsSize; } 
+
 private:
 	void Buffers();
 	
